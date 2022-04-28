@@ -4,7 +4,7 @@ using WebApiAutoresV2.Validaciones;
 
 namespace WebApiAutoresV2.Entidades
 {
-    public class Autor : IValidatableObject
+    public class Autor 
     {
         public int Id { get; set; }
         [PrimeraLetraMayusculaAtribute]
@@ -14,9 +14,6 @@ namespace WebApiAutoresV2.Entidades
         [CreditCard]
         public string Tarjeta {  get; set;}
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            throw new NotImplementedException();
-        }
+     
     }
 }

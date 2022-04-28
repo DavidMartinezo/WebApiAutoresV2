@@ -16,7 +16,8 @@ namespace WebApiAutoresV2;
     public void ConfigureServices(IServiceCollection services)
     {
        //para evitar la referencia circular en las clasess libro y autor
-        services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+        services.AddControllers().AddJsonOptions(x => 
+        x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
         services.AddTransient<IServicio, ServicioA>();
 
