@@ -1,0 +1,2 @@
+seccion 4 fundamentos de aspnet core y web api
+ultimo video visto: 44-intro a filtros 

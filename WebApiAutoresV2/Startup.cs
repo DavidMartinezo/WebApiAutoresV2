@@ -30,6 +30,7 @@ namespace WebApiAutoresV2;
         services.AddScoped<ServicioScoped>();
         services.AddSingleton<ServicioSingleton>();
         services.AddTransient<MiFiltroDeAccion>();
+        services.AddHostedService<escribirEnArchivo>();
 
 
 
