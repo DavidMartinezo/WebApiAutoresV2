@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using WebApiAutoresV2.Filtros;
+using WebApiAutoresV2.Middleares;
 using WebApiAutoresV2.Servicios;
 
 namespace WebApiAutoresV2;
@@ -16,13 +18,19 @@ namespace WebApiAutoresV2;
     public void ConfigureServices(IServiceCollection services)
     {
        //para evitar la referencia circular en las clasess libro y autor
-        services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+        services.AddControllers( opciones =>
+        {
+            opciones.Filters.Add(typeof(FiltroDeExepcion));
+        }).AddJsonOptions(x => 
+        x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
         services.AddTransient<IServicio, ServicioA>();
 
         services.AddTransient<ServicioTransient>();
         services.AddScoped<ServicioScoped>();
         services.AddSingleton<ServicioSingleton>();
+        services.AddTransient<MiFiltroDeAccion>();
+        services.AddHostedService<escribirEnArchivo>();
 
 
 
@@ -36,7 +44,8 @@ namespace WebApiAutoresV2;
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         /*tuberias middleware*/
-
+        //app.UseMiddleware<LogguearRespuestaHTTPMiddleware>();
+        app.UseLoguearRespuestaHTTP();
         app.Map("/ruta1", app =>
         {
             app.Run(async contexto =>

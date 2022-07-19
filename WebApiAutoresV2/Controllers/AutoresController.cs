@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using WebApiAutoresV2.Entidades;
+using WebApiAutoresV2.Filtros;
 using WebApiAutoresV2.Servicios;
 
 namespace WebApiAutoresV2.Controllers
@@ -32,6 +33,7 @@ namespace WebApiAutoresV2.Controllers
             this.logger = logger;
         }
        [HttpGet("GUID")]
+       [ServiceFilter(typeof(MiFiltroDeAccion))]
         public ActionResult ObtenerGuids()
         {
             return Ok( new{
@@ -45,6 +47,7 @@ namespace WebApiAutoresV2.Controllers
 
         }
         [HttpGet("/HEADER")]
+        
         public string Header([FromHeader] string valor, [FromQuery] string nombre) {
 
             return valor;
@@ -65,9 +68,10 @@ namespace WebApiAutoresV2.Controllers
 
         }
         [HttpGet]
-        [HttpGet("/listado")]
+        [HttpGet("/listado")] //--> listado como ruta.
         public async Task<ActionResult<List<Autor>>> Get()
         {
+            throw new NotImplementedException();
             logger.LogInformation("estamos obteniendo los autores");
             servicio.realizarTarea();
             //return new List<Autor>() { 
@@ -106,9 +110,18 @@ namespace WebApiAutoresV2.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(Autor autor)
         {
-            context.Add(autor);
-            await context.SaveChangesAsync();
-            return Ok();
+            //validaciones por controlador 
+            var existeAutorConNombre= await context.Autores.AnyAsync(x => x.Nombre==autor.Nombre);  
+            if (!existeAutorConNombre)
+            {
+                context.Add(autor);
+                await context.SaveChangesAsync();
+                return Ok();
+            }else
+            {
+                return BadRequest($"Existe Autor con nombre {autor.Nombre}");
+            }
+          
         }
         [HttpPut("{id:int}")]
         public async Task<ActionResult> Put(Autor autor, int id)
@@ -130,6 +143,7 @@ namespace WebApiAutoresV2.Controllers
         [HttpDelete("id:int")]
         public async Task<ActionResult> Delete(int id)
         {
+            //any signfica si existe alguno con el id que se provee
             var existe = await context.Autores.AnyAsync(x => x.Id == id);
 
             if (!existe)
