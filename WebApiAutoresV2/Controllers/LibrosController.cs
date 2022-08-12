@@ -14,12 +14,12 @@ namespace WebApiAutoresV2.Controllers
         {
             this.context = context;
         }
-        [HttpGet("{id:int}")]   
-        public async Task<ActionResult<Libro>> GetLibros(int id)
-        {
-            return await context.Libros.Include(x=> x.Autor).FirstOrDefaultAsync(x => x.id == id);
+        //[HttpGet("{id:int}")]   
+        //public async Task<ActionResult<Libro>> GetLibros(int id)
+        //{
+        //    return await context.Libros.Include(x=> x.Autor).FirstOrDefaultAsync(x => x.id == id);
 
-        }
+        //}
 
         [HttpGet]
         public async Task<ActionResult<List<Libro>>> GetAllLibros()

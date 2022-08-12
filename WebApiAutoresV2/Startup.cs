@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using WebApiAutoresV2.Filtros;
 using WebApiAutoresV2.Middleares;
-using WebApiAutoresV2.Servicios;
+
 
 namespace WebApiAutoresV2;
     public class Startup
@@ -24,16 +25,8 @@ namespace WebApiAutoresV2;
         }).AddJsonOptions(x => 
         x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
-        services.AddTransient<IServicio, ServicioA>();
-
-        services.AddTransient<ServicioTransient>();
-        services.AddScoped<ServicioScoped>();
-        services.AddSingleton<ServicioSingleton>();
-        services.AddTransient<MiFiltroDeAccion>();
-        services.AddHostedService<escribirEnArchivo>();
-
-
-
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
+     
         services.AddDbContext < ApplicationDBContext> (options=>
         options.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
         services.AddSwaggerGen(c =>

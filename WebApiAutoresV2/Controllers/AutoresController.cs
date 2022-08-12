@@ -12,39 +12,11 @@ namespace WebApiAutoresV2.Controllers
     public class AutoresController : ControllerBase
     {
         private readonly ApplicationDBContext context;
-        private readonly IServicio servicio;
-        private readonly ServicioSingleton servicioSingleton;
-        private readonly ServicioScoped servicioScoped;
-        private readonly ServicioTransient servicioTransient;
-        private readonly ILogger<AutoresController> logger;
-
+       
         public AutoresController(ApplicationDBContext context, 
-                                 IServicio servicio, 
-                                 ServicioSingleton servicioSingleton,
-                                 ServicioScoped servicioScoped, 
-                                 ServicioTransient servicioTransient,
-                                 ILogger<AutoresController> logger)
+                                     ILogger<AutoresController> logger)
         {
             this.context = context;
-            this.servicio = servicio;
-            this.servicioSingleton = servicioSingleton;
-            this.servicioScoped = servicioScoped;
-            this.servicioTransient = servicioTransient;
-            this.logger = logger;
-        }
-       [HttpGet("GUID")]
-       [ServiceFilter(typeof(MiFiltroDeAccion))]
-        public ActionResult ObtenerGuids()
-        {
-            return Ok( new{
-                AutoresControllerTransient = servicioTransient.guid,
-                ServicioA_transient=servicio.ObtenerTransient(),
-                AutorescontrollerScoped= servicioScoped.guid,
-                ServicioA_Scoped=servicio.ObtenerScoped(),
-                AutoresControllerSingleton = servicioSingleton.guid,
-                ServicioA_SingleTon=servicio.ObtenerSingleton()
-            });
-
         }
         [HttpGet("/HEADER")]
         
@@ -67,26 +39,13 @@ namespace WebApiAutoresV2.Controllers
             return valor;
 
         }
-        [HttpGet]
-        [HttpGet("/listado")] //--> listado como ruta.
-        [ServiceFilter(typeof (MiFiltroDeAccion))]
-        public async Task<ActionResult<List<Autor>>> Get()
-        {
-            throw new NotImplementedException(); //para probocar una exception e invocar el filtro de exception 
-            logger.LogInformation("estamos obteniendo los autores");
-            servicio.realizarTarea();
-            //return new List<Autor>() { 
-            //                            new Autor() { Id = 1, Nombre = "David" },
-            //                            new Autor() {  Id = 2, Nombre ="Sharlen"}
-            //
-            //  };
-            return await context.Autores.Include(x => x.libros).ToListAsync();
-        }
-        [HttpGet("primer")]
-        public async Task<ActionResult<Autor>> PrimerAutor()
-        {
-            return await context.Autores.FirstOrDefaultAsync();
-        }
+        //[HttpGet]
+        //public async Task<ActionResult<List<Autor>>> Get()
+        //{
+                   
+        //    return await context.Autores.Include(x => x.libros).ToListAsync();
+        //}
+      
         [HttpGet("id:int")]
         public async Task<ActionResult<Autor>> PrimerAutor(int id)
         {
