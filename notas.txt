@@ -1,4 +1,5 @@
 seccion 4 fundamentos de aspnet core y web api
 45-filtros personalizados y globales
-ultimo video visto: 46-ejecutar codigo recurrente using Ihosted service
+
 inicia el modulo 5 Manipulando recursos
+ultimo video visto: 52-leyendo registros con EF core
