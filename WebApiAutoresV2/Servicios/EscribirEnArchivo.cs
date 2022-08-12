@@ -18,6 +18,7 @@
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
+            timer.Dispose();
             escribir("Deteniendo el proceso");
             return Task.CompletedTask;
         }
@@ -27,12 +28,13 @@
             using (StreamWriter sw = new StreamWriter(ruta,append: true))
             {
                 sw.WriteLine(msg);
+                sw.Flush();
             } ;
         }
 
         private void Dowork(object state)
         {
-            escribir("Proceso en Ejecucion " + DateTime.Now.ToString("dd/mm/yyyyy hh:mm:ss"));
+            escribir("Proceso en Ejecucion: " + DateTime.Now.ToString("dd/mm/yyyyy hh:mm:ss"));
         }
     }
 }
