@@ -69,9 +69,10 @@ namespace WebApiAutoresV2.Controllers
         }
         [HttpGet]
         [HttpGet("/listado")] //--> listado como ruta.
+        [ServiceFilter(typeof (MiFiltroDeAccion))]
         public async Task<ActionResult<List<Autor>>> Get()
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); //para probocar una exception e invocar el filtro de exception 
             logger.LogInformation("estamos obteniendo los autores");
             servicio.realizarTarea();
             //return new List<Autor>() { 

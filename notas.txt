@@ -1,2 +1,3 @@
 seccion 4 fundamentos de aspnet core y web api
-ultimo video visto: 44-intro a filtros 
+45-filtros personalizados y globales
+ultimo video visto: 46-ejecutar codigo recurrente using Ihosted service
