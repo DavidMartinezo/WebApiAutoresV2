@@ -11,8 +11,8 @@ using WebApiAutoresV2;
 namespace WebApiAutoresV2.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20220812195232_inicial")]
-    partial class inicial
+    [Migration("20220815160901_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,12 +49,9 @@ namespace WebApiAutoresV2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
 
-                    b.Property<int>("AutorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Titulo")
-                        .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.HasKey("id");
 
