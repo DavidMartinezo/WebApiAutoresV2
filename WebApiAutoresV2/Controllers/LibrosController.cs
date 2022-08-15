@@ -50,7 +50,9 @@ namespace WebApiAutoresV2.Controllers
         [HttpGet("{id:int}")]
         public async Task<ActionResult<LibroDTO>> Get(int id)
         {
-            var libro = await context.Libros.FirstOrDefaultAsync(libroDb => libroDb.id == id);
+            var libro = await context.Libros
+                .Include(libroDb => libroDb.Comentarios)
+                .FirstOrDefaultAsync(libroDb => libroDb.id == id);
             return mapper.Map<LibroDTO>(libro); 
         }
     }

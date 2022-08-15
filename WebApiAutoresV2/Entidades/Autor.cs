@@ -11,6 +11,7 @@ namespace WebApiAutoresV2.Entidades
         [StringLength(maximumLength:120 , ErrorMessage = "El campo {0} no debe ser más de {1} carácteres")]
         [PrimeraLetraMayusculaAtribute]
         public string Nombre { get; set; }
-        }
+        public List<AutorLibro> AutoresLibros { get; set; }
+    }
 }
 
