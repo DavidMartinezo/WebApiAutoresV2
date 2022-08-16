@@ -52,14 +52,17 @@ namespace WebApiAutoresV2.Controllers
         }
 
         [HttpGet("id:int")]
-        public async Task<ActionResult<AutorDTO>> PrimerAutor(int id)
+        public async Task<ActionResult<AutorConLibroDTO>> PrimerAutor(int id)
         {
-            var autor = await context.Autores.FirstAsync(autorDb => autorDb.Id == id);
+            var autor = await context.Autores
+                .Include(autorDb => autorDb.AutoresLibros)
+                .ThenInclude(autorLibroDb => autorLibroDb.Libro)
+                .FirstAsync(autorDb => autorDb.Id == id);
             if (autor == null)
             {
                 return BadRequest("El registro no existe");
             }
-            return mapper.Map<AutorDTO>(autor);
+            return mapper.Map<AutorConLibroDTO>(autor);
         }
 
         [HttpGet("{nombre}")]

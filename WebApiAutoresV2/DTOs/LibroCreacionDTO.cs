@@ -8,5 +8,6 @@ namespace WebApiAutoresV2.DTOs
         [PrimeraLetraMayusculaAtribute]
         [StringLength(maximumLength: 250, ErrorMessage = "El campo {0} no puede ser más de {1}")]
         public string Titulo { get; set; }
+        public List<int> AutoresIds { get; set; }
     }
 }
