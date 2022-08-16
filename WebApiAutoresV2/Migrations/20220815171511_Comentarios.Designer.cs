@@ -11,8 +11,8 @@ using WebApiAutoresV2;
 namespace WebApiAutoresV2.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20220812195232_inicial")]
-    partial class inicial
+    [Migration("20220815171511_Comentarios")]
+    partial class Comentarios
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,6 +41,27 @@ namespace WebApiAutoresV2.Migrations
                     b.ToTable("Autores");
                 });
 
+            modelBuilder.Entity("WebApiAutoresV2.Entidades.Comentario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Contenido")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LibroId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LibroId");
+
+                    b.ToTable("Comentarios");
+                });
+
             modelBuilder.Entity("WebApiAutoresV2.Entidades.Libro", b =>
                 {
                     b.Property<int>("id")
@@ -49,16 +70,30 @@ namespace WebApiAutoresV2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
 
-                    b.Property<int>("AutorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Titulo")
-                        .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.HasKey("id");
 
                     b.ToTable("Libros");
+                });
+
+            modelBuilder.Entity("WebApiAutoresV2.Entidades.Comentario", b =>
+                {
+                    b.HasOne("WebApiAutoresV2.Entidades.Libro", "Libro")
+                        .WithMany("Comentarios")
+                        .HasForeignKey("LibroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Libro");
+                });
+
+            modelBuilder.Entity("WebApiAutoresV2.Entidades.Libro", b =>
+                {
+                    b.Navigation("Comentarios");
                 });
 #pragma warning restore 612, 618
         }
