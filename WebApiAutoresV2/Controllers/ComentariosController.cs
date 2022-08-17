@@ -27,10 +27,11 @@ namespace WebApiAutoresV2.Controllers
                 return BadRequest($"No existe el libro de id: {libroId}");
             }
             var comentario = mapper.Map<Comentario>(ComentarioCreacionDTO);
-            comentario.LibroId= libroId;
+            comentario.LibroId = libroId;
             context.Add(comentario);
             await context.SaveChangesAsync();
-            return Ok();
+            var comentarioDTO = mapper.Map<ComentarioDTO>(comentario);
+            return CreatedAtRoute("ObtenerComentario", new {id =comentario.Id, libroId=libroId}, comentarioDTO);
 
         }
 
@@ -45,6 +46,14 @@ namespace WebApiAutoresV2.Controllers
             var comentarios = await context.Comentarios
                 .Where(libroDb => libroDb.Id == libroId).ToListAsync();
             return mapper.Map<List<ComentarioDTO>>(comentarios);
+        }
+
+        [HttpGet("{id:int}", Name ="ObtenerComentario")]
+        public async Task<ActionResult<ComentarioDTO>> GetComentarioPorID(int id)
+        {
+            var comentario = await context.Comentarios.FirstOrDefaultAsync(comentarioDb => comentarioDb.Id == id);
+            if (comentario == null) { return NotFound(); }
+            return mapper.Map<ComentarioDTO>(comentario);
         }
     }
 }

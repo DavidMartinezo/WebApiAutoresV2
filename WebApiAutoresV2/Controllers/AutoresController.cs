@@ -51,8 +51,8 @@ namespace WebApiAutoresV2.Controllers
             return await context.Autores.ToListAsync();
         }
 
-        [HttpGet("id:int")]
-        public async Task<ActionResult<AutorConLibroDTO>> PrimerAutor(int id)
+        [HttpGet("{id:int}",Name ="ObtenerAutor")]
+        public async Task<ActionResult<AutorConLibroDTO>> GetAutor(int id)
         {
             var autor = await context.Autores
                 .Include(autorDb => autorDb.AutoresLibros)
@@ -83,12 +83,14 @@ namespace WebApiAutoresV2.Controllers
                 var autor = mapper.Map<Autor>(AutorCreacionDTO);
                 context.Add(autor);
                 await context.SaveChangesAsync();
-                return Ok();
+                var autorDto = mapper.Map<AutorDTO>(autor);
+                return CreatedAtRoute("ObtenerAutor", new  {id = autor.Id}, autorDto);
             }
             else
             {
                 return BadRequest($"Existe Autor con nombre {AutorCreacionDTO.Nombre}");
             }
+
 
         }
         [HttpPut("{id:int}")]
