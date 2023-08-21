@@ -1,0 +1,13 @@
+iniciando proceso
+Proceso en Ejecucion: 31/15/02023 02:15:26
+Proceso en Ejecucion: 31/15/02023 02:15:31
+Proceso en Ejecucion: 31/15/02023 02:15:36
+Proceso en Ejecucion: 31/15/02023 02:15:41
+Proceso en Ejecucion: 31/15/02023 02:15:46
+Proceso en Ejecucion: 31/15/02023 02:15:51
+Proceso en Ejecucion: 31/15/02023 02:15:56
+Proceso en Ejecucion: 31/16/02023 02:16:01
+Proceso en Ejecucion: 31/16/02023 02:16:06
+Proceso en Ejecucion: 31/16/02023 02:16:11
+Proceso en Ejecucion: 31/16/02023 02:16:16
+Deteniendo el proceso

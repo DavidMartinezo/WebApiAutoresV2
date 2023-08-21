@@ -9,13 +9,13 @@ namespace WebApiAutoresV2.Utilities
         public AutoMapperProfiles()
         {
             CreateMap<AutorCreacionDTO, Autor>();
-            CreateMap<Autor, AutorDTO>();
+            CreateMap<Autor, AutorDTO>().ReverseMap();
             CreateMap<Autor, AutorConLibroDTO>()
                 .ForMember(autorDTO => autorDTO.Libros, opciones => opciones.MapFrom(MapAutorDTOLibro));
             CreateMap<LibroCreacionDTO, Libro>()
                 //se crea una regla especifica para el atributo de autores libros de la entidad libro;
                 .ForMember(libro => libro.AutoresLibros, opciones => opciones.MapFrom(MapAutoresLibros));
-
+            CreateMap<LibroPathcDTO, Libro>().ReverseMap();
             CreateMap<Libro, LibroDTO>();
             CreateMap<Libro, LibroConAutorDTO>()
                 .ForMember(LibroDTO => LibroDTO.Autores, opciones => opciones.MapFrom(MapLibroDtoAutores));

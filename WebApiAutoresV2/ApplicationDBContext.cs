@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using WebApiAutoresV2.Entidades;
 
 namespace WebApiAutoresV2
 {
-    public class ApplicationDBContext : DbContext
+    public class ApplicationDBContext : IdentityDbContext
     {
         public ApplicationDBContext( DbContextOptions options) : base(options)
         {
@@ -11,6 +12,7 @@ namespace WebApiAutoresV2
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //utilizando el api fluente de entity framework 
             base.OnModelCreating(modelBuilder);
             //con esto se crea la llave compuesta para la entidad AutorLibro usando la llave autor y libro. 
             modelBuilder.Entity<AutorLibro>()

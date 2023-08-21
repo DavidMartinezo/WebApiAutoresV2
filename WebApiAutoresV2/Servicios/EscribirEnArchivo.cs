@@ -1,11 +1,11 @@
 ﻿namespace WebApiAutoresV2.Servicios
 {
-    public class escribirEnArchivo : IHostedService
+    public class EscribirEnArchivo : IHostedService
     {
         private readonly IWebHostEnvironment env;
         private readonly string nombreArchivo = "archivo1.txt";
         private  Timer timer;
-        public escribirEnArchivo(IWebHostEnvironment env)
+        public EscribirEnArchivo(IWebHostEnvironment env)
         {
             this.env = env;
         }

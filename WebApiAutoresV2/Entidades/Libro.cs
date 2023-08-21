@@ -10,6 +10,7 @@ namespace WebApiAutoresV2.Entidades
         [PrimeraLetraMayusculaAtribute]
         [StringLength(maximumLength: 250, ErrorMessage = "El campo {0} no puede ser más de {1}")]
         public string Titulo { get; set; }
+        public DateTime? FechaPublicacion { get; set; }
         public List<Comentario> Comentarios { get; set; }
         public List<AutorLibro> AutoresLibros { get; set; }
     }

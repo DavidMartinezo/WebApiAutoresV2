@@ -2,6 +2,7 @@
 {
     public static class LoguearRespuestaHTTPMiddlewareExtensions
     {
+        //esta parte es para poder usar en el startup  app.UseLoguearRespuestaHTTP();
         public static IApplicationBuilder UseLoguearRespuestaHTTP(this IApplicationBuilder app)
         {
             return app.UseMiddleware<LogguearRespuestaHTTPMiddleware>();
@@ -12,13 +13,14 @@
         private readonly RequestDelegate siguiente;
         private readonly ILogger<LogguearRespuestaHTTPMiddleware> logger;
 
-        public LogguearRespuestaHTTPMiddleware(RequestDelegate siguiente, ILogger<LogguearRespuestaHTTPMiddleware> logger )
+        public LogguearRespuestaHTTPMiddleware(RequestDelegate siguiente, 
+            ILogger<LogguearRespuestaHTTPMiddleware> logger )
         {
             this.siguiente = siguiente;
             this.logger = logger;
         }
         //para poder invacar esta clase como middleware debe tener un metodo publico invoke or invokeasync este debe enviar un task
-        public async Task Invoke(HttpContext context)
+        public async Task InvokeAsync(HttpContext context)
         {
             using (var ms= new MemoryStream())
             {
@@ -31,7 +33,7 @@
 
                 await ms.CopyToAsync(cuerpoOriginalRespuesta);
                 context.Response.Body = cuerpoOriginalRespuesta;
-                logger.LogInformation(respuesta);   
+               // logger.LogInformation(respuesta);   
 
             }
         }

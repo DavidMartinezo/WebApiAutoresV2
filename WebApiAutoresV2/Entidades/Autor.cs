@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using WebApiAutoresV2.Validaciones;
 
-namespace WebApiAutoresV2.Entidades
+namespace WebApiAutoresV2.Entidades 
 {
     public class Autor 
     {
@@ -12,6 +12,8 @@ namespace WebApiAutoresV2.Entidades
         [PrimeraLetraMayusculaAtribute]
         public string Nombre { get; set; }
         public List<AutorLibro> AutoresLibros { get; set; }
+        //para poder usar las validaciones a nivel de modelo necesito aprobar o pasar todas las de atributo 
+       
     }
 }
 
